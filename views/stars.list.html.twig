@@ -1,0 +1,41 @@
+<h1>Liste des étoiles</h1>
+<form method="get" name="formulaire" action="{{ url('stars.new') }}">
+  <button type="submit">Ajouter</button>
+</form>
+<table>
+<thead>
+  <tr>
+    <th>ID</th>
+    <th>NOM</th>
+    <th>LOCALISATION</th>
+    <th>USER</th>
+    <th>ACTION</th>
+  </tr>
+</thead>
+<tbdoy>
+{% for star in stars %}
+   <tr>
+     <td>{{star.id}}</td>
+     <td>{{star.nom}}</td>
+     <td>{{star.localisation}}</td>
+     <td>
+     {% for user in users %}
+        {% if user.id == star.userID %}
+        {{user.nom}} {{user.prenom}}
+        {% endif %}
+     {% endfor %}
+     </td>
+     <td>
+       <form method="post" name="formulaire" action="{{ url('stars.delete', {id: star.id}) }}">
+            <button type="submit">Supprimer</button>
+        </form>
+      </td>
+      <td>
+        <form method="get" name="formulaire" action="{{ url('stars.edit', {id: star.id}) }}">
+          <button type="submit">Modifier</button>
+        </form>
+      </td>
+   </tr>
+{% endfor %}
+</tbdoy>
+</table>

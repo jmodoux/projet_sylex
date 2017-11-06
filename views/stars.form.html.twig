@@ -1,0 +1,51 @@
+<h2>Formulaire</h2>
+
+{% if star is defined %}
+<form method="post" name="formulaire" action="{{ url('stars.save', {id: star.id}) }}">
+
+    <input type="hidden" name="id" value={{star.id}} />
+
+    <label for="name">Nom : </label>
+    <input type="text" name="nom" value={{star.nom}} />
+
+    <label for="name">Localisation : </label>
+    <input type="text" name="localisation" value={{star.localisation}}  />
+
+    <label for="name">User : </label>
+    <select name="userID">
+    {% for user in users %}
+      <option value={{user.id}}
+      {% if user.id == star.userID %}
+      selected
+      {% endif %}
+      >
+      {{user.nom}} {{user.prenom}}
+      </option>
+    {% endfor %}
+    </select>
+
+
+    {% else %}
+
+<form method="post" name="formulaire" action="{{ url('stars.save') }}">
+    <label for="name">Nom : </label>
+    <input type="text" name="nom" />
+
+    <label for="name">Localisation : </label>
+    <input type="text" name="localisation" />
+
+    <td>
+       <select name="userID">
+       {% for user in users %}
+          <option value={{user.id}}>
+          {{user.nom}} {{user.prenom}}
+          </option>
+       {% endfor %}
+       </select>
+    <td>
+
+    {% endif %}
+
+    <button type="submit">Envoyer</button>
+
+</form>
